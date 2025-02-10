@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:movies_app/features/details/widget/details_tabs.dart';
 import 'package:movies_app/features/details/widget/movie_details.dart';
+import 'package:movies_app/features/home/model/movies_model.dart';
 import 'package:movies_app/provider/selected_movie_provider.dart';
+import 'package:movies_app/provider/watchlist_provider.dart';
 
 class DetailsPageScreen extends ConsumerWidget {
-  const DetailsPageScreen({super.key});
+  const DetailsPageScreen(this.movie, {super.key});
+  final MoviesModel movie;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // final watchlist = ref.watch(watchlistProvider);
+    final isAdded = ref.watch(watchlistProvider).any((m) => m.id == movie.id);
+
     final selectedMovie = ref.watch(selectedMovieProvider);
 
     final backdropPath = selectedMovie?.backdropPath != null
@@ -24,10 +29,22 @@ class DetailsPageScreen extends ConsumerWidget {
             appBar: PreferredSize(
               preferredSize: const Size.fromHeight(36),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
+                padding: const EdgeInsets.symmetric(horizontal: 2),
                 child: AppBar(
                   actions: [
-                    SvgPicture.asset('assets/icons/watchlist_white.svg'),
+                    IconButton(
+                        onPressed: () {
+                          isAdded
+                              ? ref
+                                  .read(watchlistProvider.notifier)
+                                  .removeMovie(movie.id!)
+                              : ref
+                                  .read(watchlistProvider.notifier)
+                                  .addMovie(movie);
+                        },
+                        icon: isAdded
+                            ? const Icon(Icons.bookmark_outlined)
+                            : const Icon(Icons.bookmark_border_outlined))
                   ],
                   title: const Center(
                     child: Text(

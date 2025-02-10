@@ -26,7 +26,7 @@ class MoviesFullList extends ConsumerWidget {
                   onTap: () {
                     ref.read(selectedMovieProvider.notifier).state = movie;
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const DetailsPageScreen(),
+                      builder: (context) =>  DetailsPageScreen(movie),
                     ));
                   },
                   child: Hero(

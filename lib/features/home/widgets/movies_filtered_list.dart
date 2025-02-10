@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movies_app/features/details/screen/details_page_screen.dart';
 import 'package:movies_app/provider/movies_provider.dart';
+import 'package:movies_app/provider/selected_movie_provider.dart';
 import 'package:shimmer/shimmer.dart';
 
 class MoviesFilteredList extends ConsumerWidget {
@@ -38,8 +40,16 @@ class MoviesFilteredList extends ConsumerWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  child: Image.network(
-                      'https://image.tmdb.org/t/p/w500$posterPath'),
+                  child: GestureDetector(
+                    onTap: () {
+                      ref.read(selectedMovieProvider.notifier).state = movie;
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>  DetailsPageScreen(movie),
+                      ));
+                    },
+                    child: Image.network(
+                        'https://image.tmdb.org/t/p/w500$posterPath'),
+                  ),
                 ),
               );
             },
