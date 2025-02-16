@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movies_app/features/home/home_page.dart';
-import 'package:movies_app/features/search/search_page.dart';
+import 'package:movies_app/features/search/search_page_screen.dart';
 import 'package:movies_app/features/watchlist/watchlist_page_screen.dart';
 
 final bottomNavProvider = StateProvider<int>((ref) => 0);

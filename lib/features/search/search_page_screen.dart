@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:movies_app/provider/search_query_provider.dart';
 
-class SearchPage extends StatelessWidget {
+class SearchPage extends ConsumerWidget {
   const SearchPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(36),
@@ -30,6 +32,9 @@ class SearchPage extends StatelessWidget {
             child: SizedBox(
               height: 42,
               child: TextField(
+                onChanged: (value) {
+                  ref.read(searchQueryProvider.notifier).state = value;
+                },
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 14,

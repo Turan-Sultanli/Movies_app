@@ -9,7 +9,7 @@ class WatchlistNotifier extends StateNotifier<List<MoviesModel>> {
   }
 
   void removeMovie(int movieId) {
-    state = state.where((movie) => movieId != movie.id).toList();
+    state = state.where((m) => m.id != movieId).toList();
   }
 
   bool isInWatchlist(int movieId) {

@@ -22,8 +22,7 @@ class WatchlistPage extends ConsumerWidget {
             ),
           ),
         ),
-        body: watchlist.isEmpty
-            ? EmptyWatchlist as Widget
-            : const WatchlistItem());
+        body:
+            watchlist.isEmpty ? const EmptyWatchlist() : const WatchlistItem());
   }
 }
