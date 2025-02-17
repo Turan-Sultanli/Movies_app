@@ -35,8 +35,28 @@ final filteredSliderMoviesProvider =
   return filteredMovies;
 });
 
+final searchpageMovieProvider = FutureProvider<List<MoviesModel>>((ref) async {
+  final movieService = ref.watch(movieServiceProvider);
+  final searchQuery = ref.watch(searchpageMovieProvider);
+
+  if (searchQuery.isEmpty) {
+    return await movieService.fetchAllMovies();
+  }
+
+  final allMovies = await movieService.fetchAllMovies();
+  final filteredMovies = allMovies.where((movie) {
+    final movieTitle =
+        (movie.title ?? movie.originalTitle ?? '').toString().toLowerCase();
+    return movieTitle.startsWith(searchQuery) ||
+        movieTitle.contains(searchQuery);
+  }).toList();
+
+  return filteredMovies;
+});
+
 //Grid ucun
-final moviesProvider = FutureProvider.autoDispose<List<MoviesModel>>((ref) async {
+final moviesProvider =
+    FutureProvider.autoDispose<List<MoviesModel>>((ref) async {
   final movieService = ref.watch(movieServiceProvider);
   final selectedCategory = ref.watch(selectedCategoryProvider);
   final moviesCache = ref.watch(moviesCacheProvider);

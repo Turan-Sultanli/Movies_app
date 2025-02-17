@@ -59,11 +59,12 @@ class WatchlistItem extends ConsumerWidget {
                           },
                           child: const Icon(
                             Icons.close,
+                            color: Colors.grey,
                           ),
                         ),
                       ],
                     ),
-                    // const SizedBox(height: 20),
+                    const SizedBox(height: 14),
                     Row(
                       children: [
                         SvgPicture.asset('assets/icons/star.svg'),
