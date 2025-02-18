@@ -3,6 +3,7 @@ import 'package:movies_app/data/service/movie_service.dart';
 import 'package:movies_app/provider/movies_cache_provider.dart';
 import 'package:movies_app/provider/movies_filter_provider.dart';
 import 'package:movies_app/provider/search_query_provider.dart';
+import 'package:movies_app/provider/searchpage_query_provider.dart';
 
 import '../features/home/model/movies_model.dart';
 
@@ -11,7 +12,7 @@ final movieServiceProvider = Provider<MovieService>((ref) {
 });
 
 //Slider ucun
-final allMoviesProvider = FutureProvider<List<dynamic>>((ref) async {
+final allMoviesProvider = FutureProvider<List<MoviesModel>>((ref) async {
   final movieService = ref.watch(movieServiceProvider);
   return await movieService.fetchAllMovies();
 });
@@ -34,21 +35,19 @@ final filteredSliderMoviesProvider =
 
   return filteredMovies;
 });
+//
 
-final searchpageMovieProvider = FutureProvider<List<MoviesModel>>((ref) async {
-  final movieService = ref.watch(movieServiceProvider);
-  final searchQuery = ref.watch(searchpageMovieProvider);
+final searchpageMovieProvider = Provider<List<MoviesModel>>((ref) {
+  final allMovies = ref.watch(allMoviesProvider).asData?.value ?? [];
+  final searchQuery = ref.watch(searchpageQueryProvider);
 
   if (searchQuery.isEmpty) {
-    return await movieService.fetchAllMovies();
+    return allMovies;
   }
 
-  final allMovies = await movieService.fetchAllMovies();
   final filteredMovies = allMovies.where((movie) {
-    final movieTitle =
-        (movie.title ?? movie.originalTitle ?? '').toString().toLowerCase();
-    return movieTitle.startsWith(searchQuery) ||
-        movieTitle.contains(searchQuery);
+    final movieTitle = (movie.title ?? movie.originalTitle ?? '').toLowerCase();
+    return movieTitle.contains(searchQuery);
   }).toList();
 
   return filteredMovies;

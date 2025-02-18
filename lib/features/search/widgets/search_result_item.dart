@@ -8,15 +8,14 @@ class SearchResultItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final movieAsync = ref.watch(filteredSliderMoviesProvider);
+    final searchResult = ref.watch(searchpageMovieProvider);
 
     return Expanded(
-        child: movieAsync.when(
-      data: (movies) => ListView.builder(
+      child: ListView.builder(
         shrinkWrap: true,
-        itemCount: movies.length,
+        itemCount: searchResult.length,
         itemBuilder: (context, index) {
-          final movie = movies[index];
+          final movie = searchResult[index];
           return Padding(
             padding: const EdgeInsets.only(top: 24.0, left: 30, right: 40),
             child: SizedBox(
@@ -98,8 +97,6 @@ class SearchResultItem extends ConsumerWidget {
           );
         },
       ),
-      error: (error, stack) => Text('error $error'),
-      loading: () => const Center(child: CircularProgressIndicator()),
-    ));
+    );
   }
 }

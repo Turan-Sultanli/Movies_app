@@ -9,8 +9,6 @@ class SearchPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-
-
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(36),

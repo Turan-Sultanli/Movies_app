@@ -9,7 +9,7 @@ class SearchInput extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return TextField(
       onChanged: (value) {
-         ref.read(searchQueryProvider.notifier).state = value;
+        ref.read(searchQueryProvider.notifier).state = value;
       },
       style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
@@ -18,7 +18,6 @@ class SearchInput extends ConsumerWidget {
         filled: true,
         fillColor: const Color(0xFF3A3F47),
         labelText: 'Search',
-        
         labelStyle: const TextStyle(color: Colors.white),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
