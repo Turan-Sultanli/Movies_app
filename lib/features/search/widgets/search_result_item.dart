@@ -47,11 +47,14 @@ class SearchResultItem extends ConsumerWidget {
                         //rating
                         Row(
                           children: [
-                            SvgPicture.asset('assets/icons/star.svg'),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(16),
+                              child: SvgPicture.asset('assets/icons/star.svg'),
+                            ),
                             const SizedBox(width: 4),
-                            const Text(
-                              '9.5',
-                              style: TextStyle(
+                            Text(
+                              '${movie.voteAverage?.toStringAsFixed(1)}',
+                              style: const TextStyle(
                                   color: Color(0xFFFF8700),
                                   fontSize: 12,
                                   fontWeight: FontWeight.w600),
@@ -79,9 +82,11 @@ class SearchResultItem extends ConsumerWidget {
                           children: [
                             SvgPicture.asset('assets/icons/calendar.svg'),
                             const SizedBox(width: 4),
-                            const Text(
-                              '2019',
-                              style: TextStyle(
+                            Text(
+                              movie.releaseDate != null
+                                  ? movie.releaseDate!.year.toString()
+                                  : 'Unknown',
+                              style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400),

@@ -63,10 +63,13 @@ class DetailsPageScreen extends ConsumerWidget {
                   width: double.infinity,
                   child: AspectRatio(
                     aspectRatio: 2 / 3,
-                    child: Image.network(
-                      backdropPath,
-                      fit: BoxFit.fitHeight,
-                      alignment: Alignment.center,
+                    child: Hero(
+                      tag: "movie_${movie.id}",
+                      child: Image.network(
+                        backdropPath,
+                        fit: BoxFit.fitHeight,
+                        alignment: Alignment.center,
+                      ),
                     ),
                   ),
                 ),

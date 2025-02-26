@@ -26,13 +26,15 @@ final filteredSliderMoviesProvider =
   }
 
   final allMovies = await movieService.fetchAllMovies();
-  final filteredMovies = allMovies.where((movie) {
+
+  var filteredMovies = allMovies.where((movie) {
     final movieTitle =
         (movie.title ?? movie.originalTitle ?? '').toString().toLowerCase();
     return movieTitle.startsWith(searchQuery) ||
         movieTitle.contains(searchQuery);
   }).toList();
-
+  filteredMovies =
+      {for (var movie in filteredMovies) movie.id: movie}.values.toList();
   return filteredMovies;
 });
 //
@@ -45,11 +47,12 @@ final searchpageMovieProvider = Provider<List<MoviesModel>>((ref) {
     return allMovies;
   }
 
-  final filteredMovies = allMovies.where((movie) {
+  var filteredMovies = allMovies.where((movie) {
     final movieTitle = (movie.title ?? movie.originalTitle ?? '').toLowerCase();
     return movieTitle.contains(searchQuery);
   }).toList();
 
+  filteredMovies = {for(var movie in filteredMovies) movie.id : movie}.values.toList();
   return filteredMovies;
 });
 
@@ -75,7 +78,7 @@ final moviesProvider =
         break;
       case MovieCategory.topRated:
         categoryEndpoint = 'top_rated';
-        break;
+        break; 
       case MovieCategory.upcoming:
         categoryEndpoint = 'upcoming';
         break;

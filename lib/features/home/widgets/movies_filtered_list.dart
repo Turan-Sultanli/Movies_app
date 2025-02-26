@@ -44,7 +44,7 @@ class MoviesFilteredList extends ConsumerWidget {
                     onTap: () {
                       ref.read(selectedMovieProvider.notifier).state = movie;
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>  DetailsPageScreen(movie),
+                        builder: (context) => DetailsPageScreen(movie),
                       ));
                     },
                     child: Image.network(
@@ -74,7 +74,7 @@ class MoviesFilteredList extends ConsumerWidget {
                 ),
               ),
             );
-          },
+          }, 
         ),
         error: (error, stack) => Center(
           child: Column(

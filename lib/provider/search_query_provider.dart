@@ -1,3 +1,3 @@
 import 'package:riverpod/riverpod.dart';
 
-final searchQueryProvider = StateProvider<String>((ref) => '');
+final searchQueryProvider = StateProvider.autoDispose<String>((ref) => '');

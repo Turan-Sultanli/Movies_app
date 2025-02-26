@@ -26,11 +26,11 @@ class MoviesFullList extends ConsumerWidget {
                   onTap: () {
                     ref.read(selectedMovieProvider.notifier).state = movie;
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) =>  DetailsPageScreen(movie),
+                      builder: (context) => DetailsPageScreen(movie),
                     ));
                   },
                   child: Hero(
-                    tag: 'https://image.tmdb.org/t/p/w500/$posterPath',
+                    tag: "movie_${movie.id}",
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(16),
                       child: Image.network(
